@@ -1,5 +1,5 @@
 ﻿Date: 2026-03-22
-Analyste: Ismail
+Analyste: Ismail Erraouidate
 Cible: DIVA Application
 Artefact: DivaApplication.apk
 Provenance: TP sécurité mobile
