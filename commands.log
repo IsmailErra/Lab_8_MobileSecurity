@@ -1,0 +1,25 @@
+﻿# Log des commandes exécutées
+
+mkdir 00-scope
+mkdir 01-bevigil
+mkdir 02-yaazhini
+mkdir 03-triage
+mkdir 04-report
+
+Get-FileHash -Path "DivaApplication.apk" -Algorithm SHA256
+
+-----------------------------------------------------------
+BeVigil :
+Used BeVigil web interface to scan APK
+BeVigil scan completed and results reviewed
+Created bevigil_notes.md template
+Added BeVigil notes based on analysis
+
+-------------------------------------------
+Yaazhini:
+Launched Yaazhini GUI from VegaBird package
+Selected project name: DIVA_ANALYSIS
+Selected APK file: 00-scope\DivaApplication.apk
+Started Yaazhini scan with default options
+Reviewed Yaazhini analysis results in GUI
+Added Yaazhini version to analyse_info.txt

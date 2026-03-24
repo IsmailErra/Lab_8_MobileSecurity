@@ -1,0 +1,11 @@
+ID,Source,Element,Preuve,Confiance,Severite,Impact,Recommandation,Reference OWASP,Statut
+FIND-001,Yaazhini,Credentials hardcodes,APIcreds2Activity.java,Forte,High,Acces non autorise possible,Ne pas stocker les secrets dans le code,MASVS-STORAGE-1,Confirme
+FIND-002,Yaazhini,Communication HTTP,http://payatu.com,Forte,High,Interception des donnees,Utiliser HTTPS,MASVS-NETWORK-1,Confirme
+FIND-003,Yaazhini,Mode debug active,AndroidManifest.xml,Moyenne,Medium,Analyse facilitee de l app,Desactiver debug,MASVS-CODE-1,Confirme
+FIND-004,Yaazhini,Backup active,AndroidManifest.xml,Moyenne,Medium,Extraction des donnees,Desactiver allowBackup,MASVS-STORAGE-4,Confirme
+FIND-005,BeVigil,Possible Secret detecte,BeVigil issue,Moyenne,Medium,Fuite potentielle,Verifier les secrets,MASVS-STORAGE-1,A confirmer
+FIND-006,Yaazhini,Insecure storage permission,WRITE_EXTERNAL_STORAGE,Moyenne,Low,Access possible aux fichiers,Limiter les permissions,MASVS-STORAGE-2,Confirme
+FIND-007,Yaazhini,External storage usage,ContextCompat.java,Moyenne,Low,Donnees accessibles par apps tierces,Eviter stockage externe,MASVS-STORAGE-2,Confirme
+FIND-008,BeVigil,Detected endpoints,BeVigil endpoints section,Moyenne,Low,Surface d attaque augmentee,Verifier endpoints,MASVS-NETWORK-2,A confirmer
+FIND-009,BeVigil,Detected technologies,BeVigil technologies section,Faible,Info,Information sur stack technique,Mettre a jour si obsolete,MASVS-RESILIENCE-1,A confirmer
+FIND-010,Yaazhini,Improper provider export,AndroidManifest.xml,Moyenne,Medium,Acces externe possible,Restreindre export des components,MASVS-PLATFORM-1,Confirme
