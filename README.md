@@ -1,50 +1,50 @@
-# Lab_8_MobileSecurity
 # Analyse de sécurité d’une application mobile Android
 
 ## 1. Présentation
-L'objectif de ce projet est d'évaluer la posture de sécurité d'une application Android (APK) en exploitant des solutions spécialisées telles que BeVigil et Yaazhini. Cette démarche vise à identifier les potentielles failles de conception, les erreurs de configuration et les fuites de données avant tout déploiement en production.
+Ce projet a pour objectif d'évaluer la posture de sécurité de l'application Android vulnérable "DIVA" (Damn Insecure and Vulnerable App) en exploitant des solutions d'analyse automatisée comme BeVigil et Yaazhini. Cette démarche permet de déceler les failles de conception, les vulnérabilités de configuration et les fuites potentielles de données avant tout déploiement.
 
 ## 2. Environnement
-* OS: Windows
-* Outils: BeVigil, Yaazhini, PowerShell
+* **Système d'exploitation** : Windows
+* **Outils utilisés** : BeVigil (analyse cloud), Yaazhini (analyse statique locale), PowerShell
 
 ## 3. Préparation
-Avant d'entamer les vérifications, une archive APK nous a été fournie. Son empreinte cryptographique a été générée au préalable afin d'assurer l'intégrité du fichier analysé.
+Avant de débuter l'inspection, nous avons réceptionné l'archive APK cible. La première étape a consisté à calculer son empreinte cryptographique (SHA-256) afin de garantir l'intégrité du fichier et d'assurer la traçabilité de nos analyses.
 
 ![Hash APK](screenshots/apk_hash_sha256.png)
 
 ## 4. Analyse avec BeVigil
-Le fichier a été soumis à la plateforme BeVigil pour un premier niveau d'inspection. Dès le téléversement finalisé, l'outil a exécuté sa routine de scan, générant ensuite un tableau de bord global qui recense le niveau de risque et les alertes majeures.
+L'application a d'abord été soumise à la plateforme BeVigil pour une reconnaissance globale. Après le téléversement et le lancement du scan, l'outil a généré un tableau de bord détaillant le niveau de risque de l'application ainsi que les principales alertes de sécurité détectées.
 
+![Upload APK](screenshots/upload_apk_bevigil.png)
 ![Sélection fichier](screenshots/select_apk_file.png)
 ![Statut scan](screenshots/bevigil_scan_status.png)
-![Résultats BeVigil](screenshots/bevigil_detected_issues.png)
+![Tableau de bord et Résultats BeVigil](screenshots/bevigil_summary_dashboard.png)
 
 ## 5. Analyse avec Yaazhini
-Pour un examen approfondi du code source de l'application, l'utilitaire Yaazhini a été lancé localement. Suite au chargement de l'APK, le processus d'analyse statique s'est déclenché, révélant rapidement la présence de diverses faiblesses, notamment au niveau des permissions du manifeste et des éléments codés en dur.
+Afin de réaliser une inspection approfondie du code, Yaazhini a été exécuté en local. Après le chargement de l'APK, l'analyse statique a mis en évidence plusieurs vulnérabilités critiques, notamment au niveau des permissions du manifeste (mode debug, sauvegarde activée) et la présence d'informations sensibles codées en dur.
 
-![Interface Yaazhini](screenshots/yaazhini_interface_home.png)
-![Chargement APK](screenshots/yaazhini_apk_selection.png)
-![Résumé application](screenshots/yaazhini_app_summary.png)
-![Liste vulnérabilités](screenshots/yaazhini_vulnerabilities_overview.png)
-![Credentials exposés](screenshots/yaazhini_hardcoded_credentials.png)
+![Interface et Chargement APK](screenshots/yaazhini_apk_selection.png)
+![Résumé de l'application](screenshots/yaazhini_app_summary.png)
+![Vue globale et Problèmes manifest](screenshots/yaazhini_manifest_debug_backup.png)
+![Credentials exposés en clair](screenshots/yaazhini_hardcoded_credentials.png)
 
 ## 6. Résultats consolidés
-Les éléments critiques extraits lors des différentes phases ont été normalisés puis assemblés au sein d'un document de triage centralisé.
+L'ensemble des anomalies identifiées lors de ces analyses a été centralisé et normalisé au sein d'un document de triage pour faciliter le suivi et la remédiation.
 
-![Triage](screenshots/triage_results_csv.png)
+![Triage des vulnérabilités](screenshots/triage_results_csv.png)
 
-Les problèmes principaux ayant été confirmés :
-* Secrets exposés dans le code
-* Communication non sécurisée (HTTP)
-* Mode debug actif
-* Sauvegarde activée
+Les faiblesses majeures confirmées sont :
+* Présence de secrets exposés dans le code source (Hardcoded credentials).
+* Utilisation de protocoles de communication non sécurisés (HTTP en clair).
+* Configuration d'application non sécurisée (Mode debug actif et fonction de sauvegarde autorisée).
 
 ## 7. Structure du projet
-![Structure](screenshots/project_directory_structure.png)
+L'arborescence du projet a été structurée pour séparer les différents outils d'analyse et les livrables associés :
+
+![Structure des répertoires](screenshots/project_directory_structure.png)
 
 ## 8. Périmètre
-![Scope](screenshots/scope_definition.png)
+![Définition du périmètre](screenshots/scope_definition.png)
 
 ## 9. Conclusion
-En résumé, de multiples faiblesses altérant significativement la confidentialité et l'intégrité de la solution ont été mises en évidence. Il devient primordial de renforcer la rigueur autour des bonnes pratiques de développement sécurisé pour pallier ces vulnérabilités.
+En définitive, de multiples faiblesses altérant significativement la confidentialité et l'intégrité de l'application ont été mises en évidence. Il est indispensable d'appliquer de strictes pratiques de développement sécurisé (Secure Coding) et de corriger la configuration de l'application pour mitiger ces vulnérabilités.
