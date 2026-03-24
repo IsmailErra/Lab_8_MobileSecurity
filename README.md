@@ -16,10 +16,8 @@ Avant d'entamer les vérifications, une archive APK nous a été fournie. Son em
 ## 4. Analyse avec BeVigil
 Le fichier a été soumis à la plateforme BeVigil pour un premier niveau d'inspection. Dès le téléversement finalisé, l'outil a exécuté sa routine de scan, générant ensuite un tableau de bord global qui recense le niveau de risque et les alertes majeures.
 
-![Upload APK](screenshots/upload_apk_bevigil.png)
 ![Sélection fichier](screenshots/select_apk_file.png)
 ![Statut scan](screenshots/bevigil_scan_status.png)
-![Résumé BeVigil](screenshots/bevigil_summary_dashboard.png)
 ![Résultats BeVigil](screenshots/bevigil_detected_issues.png)
 
 ## 5. Analyse avec Yaazhini
@@ -29,7 +27,6 @@ Pour un examen approfondi du code source de l'application, l'utilitaire Yaazhini
 ![Chargement APK](screenshots/yaazhini_apk_selection.png)
 ![Résumé application](screenshots/yaazhini_app_summary.png)
 ![Liste vulnérabilités](screenshots/yaazhini_vulnerabilities_overview.png)
-![Problème manifest](screenshots/yaazhini_manifest_debug_backup.png)
 ![Credentials exposés](screenshots/yaazhini_hardcoded_credentials.png)
 
 ## 6. Résultats consolidés
