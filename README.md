@@ -1,75 +1,53 @@
 # Lab_8_MobileSecurity
-Tu es un assistant chargé d’organiser et renommer des captures d’écran pour qu’elles correspondent parfaitement aux références présentes dans un fichier README.md.
+# Analyse de sécurité d’une application mobile Android
 
-Contexte :
+## 1. Présentation
+L'objectif de ce projet est d'évaluer la posture de sécurité d'une application Android (APK) en exploitant des solutions spécialisées telles que BeVigil et Yaazhini. Cette démarche vise à identifier les potentielles failles de conception, les erreurs de configuration et les fuites de données avant tout déploiement en production.
 
-* Un dossier `screenshots/` contient plusieurs images nommées de façon aléatoire (ex: Screenshot 2026-03-22...).
-* Un fichier README.md existe déjà et contient des références d’images sous la forme :
-  `screenshots/nom_image.png`
-* L’objectif est de faire correspondre les fichiers réels avec les noms utilisés dans le README.
+## 2. Environnement
+* OS: Windows
+* Outils: BeVigil, Yaazhini, PowerShell
 
----
+## 3. Préparation
+Avant d'entamer les vérifications, une archive APK nous a été fournie. Son empreinte cryptographique a été générée au préalable afin d'assurer l'intégrité du fichier analysé.
 
-Tâches à réaliser :
+![Hash APK](screenshots/apk_hash_sha256.png)
 
-1. Lire le fichier README.md.
+## 4. Analyse avec BeVigil
+Le fichier a été soumis à la plateforme BeVigil pour un premier niveau d'inspection. Dès le téléversement finalisé, l'outil a exécuté sa routine de scan, générant ensuite un tableau de bord global qui recense le niveau de risque et les alertes majeures.
 
-2. Extraire TOUS les noms d’images utilisés (ex : `apk_hash_sha256.png`, `upload_apk_bevigil.png`, etc.).
+![Upload APK](screenshots/upload_apk_bevigil.png)
+![Sélection fichier](screenshots/select_apk_file.png)
+![Statut scan](screenshots/bevigil_scan_status.png)
+![Résumé BeVigil](screenshots/bevigil_summary_dashboard.png)
+![Résultats BeVigil](screenshots/bevigil_detected_issues.png)
 
-3. Analyser chaque capture d’écran fournie (contenu visuel).
+## 5. Analyse avec Yaazhini
+Pour un examen approfondi du code source de l'application, l'utilitaire Yaazhini a été lancé localement. Suite au chargement de l'APK, le processus d'analyse statique s'est déclenché, révélant rapidement la présence de diverses faiblesses, notamment au niveau des permissions du manifeste et des éléments codés en dur.
 
-4. Associer chaque image au bon nom en se basant sur :
+![Interface Yaazhini](screenshots/yaazhini_interface_home.png)
+![Chargement APK](screenshots/yaazhini_apk_selection.png)
+![Résumé application](screenshots/yaazhini_app_summary.png)
+![Liste vulnérabilités](screenshots/yaazhini_vulnerabilities_overview.png)
+![Problème manifest](screenshots/yaazhini_manifest_debug_backup.png)
+![Credentials exposés](screenshots/yaazhini_hardcoded_credentials.png)
 
-   * le contenu affiché
-   * le contexte du README
-   * l’ordre logique des sections
+## 6. Résultats consolidés
+Les éléments critiques extraits lors des différentes phases ont été normalisés puis assemblés au sein d'un document de triage centralisé.
 
-5. Renommer chaque fichier du dossier `screenshots/` pour correspondre EXACTEMENT aux noms utilisés dans le README.
+![Triage](screenshots/triage_results_csv.png)
 
----
+Les problèmes principaux ayant été confirmés :
+* Secrets exposés dans le code
+* Communication non sécurisée (HTTP)
+* Mode debug actif
+* Sauvegarde activée
 
-Contraintes strictes :
+## 7. Structure du projet
+![Structure](screenshots/project_directory_structure.png)
 
-* Ne PAS inventer de nouveaux noms.
-* Utiliser UNIQUEMENT les noms déjà présents dans le README.
-* Respecter exactement :
+## 8. Périmètre
+![Scope](screenshots/scope_definition.png)
 
-  * minuscules
-  * underscores `_`
-  * extension `.png`
-* Chaque image doit correspondre à UNE seule référence.
-* Ne laisser AUCUNE image non utilisée.
-
----
-
-Format de sortie attendu :
-
-Donner uniquement une liste claire des renommages :
-
-ancien_nom.png → screenshots/nom_final.png
-
-Exemple :
-Screenshot_2026_01.png → screenshots/upload_apk_bevigil.png
-
----
-
-Important :
-
-* Se baser sur le contenu visuel (interfaces MobSF, terminal, DIVA, logs, etc.)
-
-* Être logique et cohérent avec les sections du README :
-
-  * préparation
-  * analyse statique
-  * analyse dynamique
-  * résultats
-
-* Ne donner AUCUNE explication.
-
-* Ne pas modifier le README.
-
-* Ne pas ajouter de texte inutile.
-
-Objectif final :
-
-Avoir un dossier `screenshots/` parfaitement aligné avec les références du README.md, prêt pour rendu final.
+## 9. Conclusion
+En résumé, de multiples faiblesses altérant significativement la confidentialité et l'intégrité de la solution ont été mises en évidence. Il devient primordial de renforcer la rigueur autour des bonnes pratiques de développement sécurisé pour pallier ces vulnérabilités.
